@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HopitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="hopitale">
+    <Key>
+      <PropertyRef Name="id_hopital" />
+    </Key>
+    <Property Name="id_hopital" Type="Int32" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="adresse" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="ville" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="servicees" Relationship="Self.FK__servicee__id_hop__4D94879B" FromRole="hopitale" ToRole="servicee" />
+  </EntityType>
+  <EntityType Name="medecin">
+    <Key>
+      <PropertyRef Name="id_medecin" />
+    </Key>
+    <Property Name="id_medecin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="prenom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="dtn" Type="DateTime" Precision="0" />
+    <Property Name="sexe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="id_specialitee_" Type="Int32" />
+    <Property Name="id_service" Type="Int32" />
+    <NavigationProperty Name="servicee" Relationship="Self.FK__medecin__id_serv__5165187F" FromRole="medecin" ToRole="servicee" />
+    <NavigationProperty Name="specialite" Relationship="Self.FK__medecin__id_spec__5070F446" FromRole="medecin" ToRole="specialite" />
+    <NavigationProperty Name="soignes" Relationship="Self.FK__soigne__id_medec__5629CD9C" FromRole="medecin" ToRole="soigne" />
+  </EntityType>
+  <EntityType Name="patient">
+    <Key>
+      <PropertyRef Name="id_patient" />
+    </Key>
+    <Property Name="id_patient" Type="Int32" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="prenom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="dtn" Type="DateTime" Precision="0" />
+    <Property Name="sexe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="adresse" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="sejournes" Relationship="Self.FK__sejourne__id_pat__5AEE82B9" FromRole="patient" ToRole="sejourne" />
+    <NavigationProperty Name="soignes" Relationship="Self.FK__soigne__id_patie__571DF1D5" FromRole="patient" ToRole="soigne" />
+  </EntityType>
+  <EntityType Name="sejourne">
+    <Key>
+      <PropertyRef Name="id_sejour" />
+    </Key>
+    <Property Name="id_sejour" Type="Int32" Nullable="false" />
+    <Property Name="id_servicee_" Type="Int32" />
+    <Property Name="id_patientt_" Type="Int32" />
+    <Property Name="date_entree" Type="DateTime" Precision="0" />
+    <Property Name="date_sortie" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="patient" Relationship="Self.FK__sejourne__id_pat__5AEE82B9" FromRole="sejourne" ToRole="patient" />
+    <NavigationProperty Name="servicee" Relationship="Self.FK__sejourne__id_ser__59FA5E80" FromRole="sejourne" ToRole="servicee" />
+  </EntityType>
+  <EntityType Name="servicee">
+    <Key>
+      <PropertyRef Name="id_service" />
+    </Key>
+    <Property Name="id_service" Type="Int32" Nullable="false" />
+    <Property Name="id_hopitall_" Type="Int32" />
+    <Property Name="nbr_lit" Type="Int32" />
+    <NavigationProperty Name="hopitale" Relationship="Self.FK__servicee__id_hop__4D94879B" FromRole="servicee" ToRole="hopitale" />
+    <NavigationProperty Name="medecins" Relationship="Self.FK__medecin__id_serv__5165187F" FromRole="servicee" ToRole="medecin" />
+    <NavigationProperty Name="sejournes" Relationship="Self.FK__sejourne__id_ser__59FA5E80" FromRole="servicee" ToRole="sejourne" />
+  </EntityType>
+  <EntityType Name="soigne">
+    <Key>
+      <PropertyRef Name="id_soin" />
+    </Key>
+    <Property Name="id_soin" Type="Int32" Nullable="false" />
+    <Property Name="id_medecinn_" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="id_patientt_" Type="Int32" />
+    <Property Name="nom_maladie" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="commentaire" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="date_soigne" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="medecin" Relationship="Self.FK__soigne__id_medec__5629CD9C" FromRole="soigne" ToRole="medecin" />
+    <NavigationProperty Name="patient" Relationship="Self.FK__soigne__id_patie__571DF1D5" FromRole="soigne" ToRole="patient" />
+  </EntityType>
+  <EntityType Name="specialite">
+    <Key>
+      <PropertyRef Name="id_specialite" />
+    </Key>
+    <Property Name="id_specialite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="medecins" Relationship="Self.FK__medecin__id_spec__5070F446" FromRole="specialite" ToRole="medecin" />
+  </EntityType>
+  <Association Name="FK__servicee__id_hop__4D94879B">
+    <End Role="hopitale" Type="Self.hopitale" Multiplicity="0..1" />
+    <End Role="servicee" Type="Self.servicee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hopitale">
+        <PropertyRef Name="id_hopital" />
+      </Principal>
+      <Dependent Role="servicee">
+        <PropertyRef Name="id_hopitall_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__medecin__id_serv__5165187F">
+    <End Role="servicee" Type="Self.servicee" Multiplicity="0..1" />
+    <End Role="medecin" Type="Self.medecin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicee">
+        <PropertyRef Name="id_service" />
+      </Principal>
+      <Dependent Role="medecin">
+        <PropertyRef Name="id_service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__medecin__id_spec__5070F446">
+    <End Role="specialite" Type="Self.specialite" Multiplicity="0..1" />
+    <End Role="medecin" Type="Self.medecin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="specialite">
+        <PropertyRef Name="id_specialite" />
+      </Principal>
+      <Dependent Role="medecin">
+        <PropertyRef Name="id_specialitee_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__soigne__id_medec__5629CD9C">
+    <End Role="medecin" Type="Self.medecin" Multiplicity="0..1" />
+    <End Role="soigne" Type="Self.soigne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="medecin">
+        <PropertyRef Name="id_medecin" />
+      </Principal>
+      <Dependent Role="soigne">
+        <PropertyRef Name="id_medecinn_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sejourne__id_pat__5AEE82B9">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="sejourne" Type="Self.sejourne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="id_patient" />
+      </Principal>
+      <Dependent Role="sejourne">
+        <PropertyRef Name="id_patientt_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__soigne__id_patie__571DF1D5">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="soigne" Type="Self.soigne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="id_patient" />
+      </Principal>
+      <Dependent Role="soigne">
+        <PropertyRef Name="id_patientt_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sejourne__id_ser__59FA5E80">
+    <End Role="servicee" Type="Self.servicee" Multiplicity="0..1" />
+    <End Role="sejourne" Type="Self.sejourne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicee">
+        <PropertyRef Name="id_service" />
+      </Principal>
+      <Dependent Role="sejourne">
+        <PropertyRef Name="id_servicee_" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HopitalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="hopitales" EntityType="Self.hopitale" />
+    <EntitySet Name="medecins" EntityType="Self.medecin" />
+    <EntitySet Name="patients" EntityType="Self.patient" />
+    <EntitySet Name="sejournes" EntityType="Self.sejourne" />
+    <EntitySet Name="servicees" EntityType="Self.servicee" />
+    <EntitySet Name="soignes" EntityType="Self.soigne" />
+    <EntitySet Name="specialites" EntityType="Self.specialite" />
+    <AssociationSet Name="FK__servicee__id_hop__4D94879B" Association="Self.FK__servicee__id_hop__4D94879B">
+      <End Role="hopitale" EntitySet="hopitales" />
+      <End Role="servicee" EntitySet="servicees" />
+    </AssociationSet>
+    <AssociationSet Name="FK__medecin__id_serv__5165187F" Association="Self.FK__medecin__id_serv__5165187F">
+      <End Role="servicee" EntitySet="servicees" />
+      <End Role="medecin" EntitySet="medecins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__medecin__id_spec__5070F446" Association="Self.FK__medecin__id_spec__5070F446">
+      <End Role="specialite" EntitySet="specialites" />
+      <End Role="medecin" EntitySet="medecins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__soigne__id_medec__5629CD9C" Association="Self.FK__soigne__id_medec__5629CD9C">
+      <End Role="medecin" EntitySet="medecins" />
+      <End Role="soigne" EntitySet="soignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sejourne__id_pat__5AEE82B9" Association="Self.FK__sejourne__id_pat__5AEE82B9">
+      <End Role="patient" EntitySet="patients" />
+      <End Role="sejourne" EntitySet="sejournes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__soigne__id_patie__571DF1D5" Association="Self.FK__soigne__id_patie__571DF1D5">
+      <End Role="patient" EntitySet="patients" />
+      <End Role="soigne" EntitySet="soignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sejourne__id_ser__59FA5E80" Association="Self.FK__sejourne__id_ser__59FA5E80">
+      <End Role="servicee" EntitySet="servicees" />
+      <End Role="sejourne" EntitySet="sejournes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

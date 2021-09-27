@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HopitalModelStoreContainer" CdmEntityContainer="HopitalEntities">
+    <EntitySetMapping Name="hopitales">
+      <EntityTypeMapping TypeName="HopitalModel.hopitale">
+        <MappingFragment StoreEntitySet="hopitale">
+          <ScalarProperty Name="id_hopital" ColumnName="id_hopital" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="ville" ColumnName="ville" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medecins">
+      <EntityTypeMapping TypeName="HopitalModel.medecin">
+        <MappingFragment StoreEntitySet="medecin">
+          <ScalarProperty Name="id_medecin" ColumnName="id_medecin" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="dtn" ColumnName="dtn" />
+          <ScalarProperty Name="sexe" ColumnName="sexe" />
+          <ScalarProperty Name="id_specialitee_" ColumnName="id_specialitee#" />
+          <ScalarProperty Name="id_service" ColumnName="id_service" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="patients">
+      <EntityTypeMapping TypeName="HopitalModel.patient">
+        <MappingFragment StoreEntitySet="patient">
+          <ScalarProperty Name="id_patient" ColumnName="id_patient" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="dtn" ColumnName="dtn" />
+          <ScalarProperty Name="sexe" ColumnName="sexe" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sejournes">
+      <EntityTypeMapping TypeName="HopitalModel.sejourne">
+        <MappingFragment StoreEntitySet="sejourne">
+          <ScalarProperty Name="id_sejour" ColumnName="id_sejour" />
+          <ScalarProperty Name="id_servicee_" ColumnName="id_servicee#" />
+          <ScalarProperty Name="id_patientt_" ColumnName="id_patientt#" />
+          <ScalarProperty Name="date_entree" ColumnName="date_entree" />
+          <ScalarProperty Name="date_sortie" ColumnName="date_sortie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicees">
+      <EntityTypeMapping TypeName="HopitalModel.servicee">
+        <MappingFragment StoreEntitySet="servicee">
+          <ScalarProperty Name="id_service" ColumnName="id_service" />
+          <ScalarProperty Name="id_hopitall_" ColumnName="id_hopitall#" />
+          <ScalarProperty Name="nbr_lit" ColumnName="nbr_lit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="soignes">
+      <EntityTypeMapping TypeName="HopitalModel.soigne">
+        <MappingFragment StoreEntitySet="soigne">
+          <ScalarProperty Name="id_soin" ColumnName="id_soin" />
+          <ScalarProperty Name="id_medecinn_" ColumnName="id_medecinn#" />
+          <ScalarProperty Name="id_patientt_" ColumnName="id_patientt#" />
+          <ScalarProperty Name="nom_maladie" ColumnName="nom_maladie" />
+          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+          <ScalarProperty Name="date_soigne" ColumnName="date_soigne" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="specialites">
+      <EntityTypeMapping TypeName="HopitalModel.specialite">
+        <MappingFragment StoreEntitySet="specialite">
+          <ScalarProperty Name="id_specialite" ColumnName="id_specialite" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

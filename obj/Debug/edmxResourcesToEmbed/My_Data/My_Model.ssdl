@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HopitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="hopitale">
+    <Key>
+      <PropertyRef Name="id_hopital" />
+    </Key>
+    <Property Name="id_hopital" Type="int" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="25" />
+    <Property Name="adresse" Type="varchar" MaxLength="25" />
+    <Property Name="ville" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="medecin">
+    <Key>
+      <PropertyRef Name="id_medecin" />
+    </Key>
+    <Property Name="id_medecin" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="25" />
+    <Property Name="prenom" Type="varchar" MaxLength="25" />
+    <Property Name="dtn" Type="date" />
+    <Property Name="sexe" Type="varchar" MaxLength="10" />
+    <Property Name="id_specialitee#" Type="int" />
+    <Property Name="id_service" Type="int" />
+  </EntityType>
+  <EntityType Name="patient">
+    <Key>
+      <PropertyRef Name="id_patient" />
+    </Key>
+    <Property Name="id_patient" Type="int" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="25" />
+    <Property Name="prenom" Type="varchar" MaxLength="25" />
+    <Property Name="dtn" Type="date" />
+    <Property Name="sexe" Type="varchar" MaxLength="10" />
+    <Property Name="adresse" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="sejourne">
+    <Key>
+      <PropertyRef Name="id_sejour" />
+    </Key>
+    <Property Name="id_sejour" Type="int" Nullable="false" />
+    <Property Name="id_servicee#" Type="int" />
+    <Property Name="id_patientt#" Type="int" />
+    <Property Name="date_entree" Type="date" />
+    <Property Name="date_sortie" Type="date" />
+  </EntityType>
+  <EntityType Name="servicee">
+    <Key>
+      <PropertyRef Name="id_service" />
+    </Key>
+    <Property Name="id_service" Type="int" Nullable="false" />
+    <Property Name="id_hopitall#" Type="int" />
+    <Property Name="nbr_lit" Type="int" />
+  </EntityType>
+  <EntityType Name="soigne">
+    <Key>
+      <PropertyRef Name="id_soin" />
+    </Key>
+    <Property Name="id_soin" Type="int" Nullable="false" />
+    <Property Name="id_medecinn#" Type="varchar" MaxLength="10" />
+    <Property Name="id_patientt#" Type="int" />
+    <Property Name="nom_maladie" Type="varchar" MaxLength="25" />
+    <Property Name="commentaire" Type="varchar" MaxLength="25" />
+    <Property Name="date_soigne" Type="date" />
+  </EntityType>
+  <EntityType Name="specialite">
+    <Key>
+      <PropertyRef Name="id_specialite" />
+    </Key>
+    <Property Name="id_specialite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <Association Name="FK__medecin__id_serv__5165187F">
+    <End Role="servicee" Type="Self.servicee" Multiplicity="0..1" />
+    <End Role="medecin" Type="Self.medecin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicee">
+        <PropertyRef Name="id_service" />
+      </Principal>
+      <Dependent Role="medecin">
+        <PropertyRef Name="id_service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__medecin__id_spec__5070F446">
+    <End Role="specialite" Type="Self.specialite" Multiplicity="0..1" />
+    <End Role="medecin" Type="Self.medecin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="specialite">
+        <PropertyRef Name="id_specialite" />
+      </Principal>
+      <Dependent Role="medecin">
+        <PropertyRef Name="id_specialitee#" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sejourne__id_pat__5AEE82B9">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="sejourne" Type="Self.sejourne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="id_patient" />
+      </Principal>
+      <Dependent Role="sejourne">
+        <PropertyRef Name="id_patientt#" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sejourne__id_ser__59FA5E80">
+    <End Role="servicee" Type="Self.servicee" Multiplicity="0..1" />
+    <End Role="sejourne" Type="Self.sejourne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicee">
+        <PropertyRef Name="id_service" />
+      </Principal>
+      <Dependent Role="sejourne">
+        <PropertyRef Name="id_servicee#" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__servicee__id_hop__4D94879B">
+    <End Role="hopitale" Type="Self.hopitale" Multiplicity="0..1" />
+    <End Role="servicee" Type="Self.servicee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hopitale">
+        <PropertyRef Name="id_hopital" />
+      </Principal>
+      <Dependent Role="servicee">
+        <PropertyRef Name="id_hopitall#" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__soigne__id_medec__5629CD9C">
+    <End Role="medecin" Type="Self.medecin" Multiplicity="0..1" />
+    <End Role="soigne" Type="Self.soigne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="medecin">
+        <PropertyRef Name="id_medecin" />
+      </Principal>
+      <Dependent Role="soigne">
+        <PropertyRef Name="id_medecinn#" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__soigne__id_patie__571DF1D5">
+    <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+    <End Role="soigne" Type="Self.soigne" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="id_patient" />
+      </Principal>
+      <Dependent Role="soigne">
+        <PropertyRef Name="id_patientt#" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HopitalModelStoreContainer">
+    <EntitySet Name="hopitale" EntityType="Self.hopitale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="medecin" EntityType="Self.medecin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="patient" EntityType="Self.patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sejourne" EntityType="Self.sejourne" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="servicee" EntityType="Self.servicee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="soigne" EntityType="Self.soigne" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="specialite" EntityType="Self.specialite" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__medecin__id_serv__5165187F" Association="Self.FK__medecin__id_serv__5165187F">
+      <End Role="servicee" EntitySet="servicee" />
+      <End Role="medecin" EntitySet="medecin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__medecin__id_spec__5070F446" Association="Self.FK__medecin__id_spec__5070F446">
+      <End Role="specialite" EntitySet="specialite" />
+      <End Role="medecin" EntitySet="medecin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sejourne__id_pat__5AEE82B9" Association="Self.FK__sejourne__id_pat__5AEE82B9">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="sejourne" EntitySet="sejourne" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sejourne__id_ser__59FA5E80" Association="Self.FK__sejourne__id_ser__59FA5E80">
+      <End Role="servicee" EntitySet="servicee" />
+      <End Role="sejourne" EntitySet="sejourne" />
+    </AssociationSet>
+    <AssociationSet Name="FK__servicee__id_hop__4D94879B" Association="Self.FK__servicee__id_hop__4D94879B">
+      <End Role="hopitale" EntitySet="hopitale" />
+      <End Role="servicee" EntitySet="servicee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__soigne__id_medec__5629CD9C" Association="Self.FK__soigne__id_medec__5629CD9C">
+      <End Role="medecin" EntitySet="medecin" />
+      <End Role="soigne" EntitySet="soigne" />
+    </AssociationSet>
+    <AssociationSet Name="FK__soigne__id_patie__571DF1D5" Association="Self.FK__soigne__id_patie__571DF1D5">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="soigne" EntitySet="soigne" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
