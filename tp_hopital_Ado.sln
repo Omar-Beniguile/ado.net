@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tp_hopital_Ado", "tp_hopital_Ado\tp_hopital_Ado.csproj", "{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Debug|x64.ActiveCfg = Debug|x64
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Debug|x64.Build.0 = Debug|x64
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Release|x64.ActiveCfg = Release|x64
+		{75AA9E05-2E9C-4BF0-9B10-442EFC1768DE}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9326AFCC-A3A9-45E6-A3D0-8B4EE12AB523}
+	EndGlobalSection
+EndGlobal
